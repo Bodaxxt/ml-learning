@@ -18,12 +18,18 @@ def clean_text(text):
     text = re.sub(r'\s+', ' ', text).strip()
     return text
 
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 # Load saved vectorizer and model
 @st.cache_resource
 def load_artifacts():
-    with open('vectorizer.pkl', 'rb') as f:
+    vectorizer_path = os.path.join(BASE_DIR, 'vectorizer.pkl')
+    model_path = os.path.join(BASE_DIR, 'model.pkl')
+    with open(vectorizer_path, 'rb') as f:
         vectorizer = pickle.load(f)
-    with open('model.pkl', 'rb') as f:
+    with open(model_path, 'rb') as f:
         model = pickle.load(f)
     return vectorizer, model
 
